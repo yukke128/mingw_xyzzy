@@ -246,7 +246,7 @@ Fole_drop_files (lisp lpath, lisp lclsid, lisp ldir, lisp lfiles)
   f = lfiles;
   for (int i = 0; i < nfiles && consp (f); i++, f = xcdr (f))
     {
-      i2w (xcar (f), wbuf);
+      i2w (xcar (f), (ucs2_t*)wbuf);
       ole_error (sf->ParseDisplayName (0, 0, wbuf, &eaten, &idls[i], 0));
     }
 

@@ -2,7 +2,7 @@
 # define _DnD_h_
 
 #include <ole2.h>
-#include <ole2ver.h>
+//#include <ole2ver.h>
 
 class ole_object
 {

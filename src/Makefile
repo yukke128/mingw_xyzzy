@@ -134,18 +134,22 @@ BUILD=xyzzy.exe
 !IF "$(VCVER)" == ""
 !ERROR `VCVER' undeclared.
 !ELSEIF "$(VCVER)" == "4"
-CXXOPT=-Gf -GX
+CXXOPT=-EHsc
 !ELSE
-CXXOPT=-GF -EHa
+CXXOPT=-EHa
 !ENDIF
 
 DEFS=-DSTRICT -DWIN32 -D_WIN32 -D_MT -D__XYZZY__ -DPRIVCTRL_NODLL -DHAVE_DIMM_H -DDEBUG_GC
-CXX=cl -nologo
+CXX=cl -nologo -Zc:forScope- 
 CPP=cl -nologo -E
 LD=link -nologo
 LIBS=kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib \
-comctl32.lib imm32.lib setargv.obj comdlg32.lib mpr.lib ole32.lib \
+comctl32.lib imm32.lib comdlg32.lib mpr.lib ole32.lib \
 oleaut32.lib winspool.lib zlib/zlib.lib 
+## LIBS=kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib \
+## comctl32.lib imm32.lib setargv.obj comdlg32.lib mpr.lib ole32.lib \
+## oleaut32.lib winspool.lib zlib/zlib.lib 
+
 INC=-I$(PRIVCTRLDIR)
 
 SPC=""
@@ -170,7 +174,7 @@ FINAL_TARGET=$(OUTDIR)/$(BUILD)
 
 OUTDIR=r
 OBJS=$(OBJS: = r/)
-CXXFLAGS=-Ob1 -Og -Oi -Ot -Oy -G5 -Gs -Gy -Gz $(CXXOPT) -W3 -MT -vmb $(INC) $(DEFS) -Fo$(OUTDIR)/
+CXXFLAGS=-Ob1 -O1 -Oi -Ot -Oy -Gs -Gy -Gz $(CXXOPT) -W3 -MT -vmb $(INC) $(DEFS) -Fo$(OUTDIR)/
 LDFLAGS=-stack:0x2000000 -map:$(OUTDIR)/xyzzy.map -incremental:no -fixed -opt:ref
 FINAL_TARGET=../$(BUILD)
 

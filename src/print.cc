@@ -864,7 +864,7 @@ print_engine::paint_jisx0212 (PaintCtx &ctx, Char cc) const
       int o = l == 2 ? pe_offset2x[FONT_JP] : pe_offset[FONT_JP].x;
       SelectObject (ctx.hdc, pe_hfonts[FONT_JP]);
       ExtTextOutW (ctx.hdc, ctx.x + o, ctx.y + pe_offset[FONT_JP].y,
-                   0, 0, &wc, 1, 0);
+                   0, 0, (LPCWSTR)&wc, 1, 0);
     }
   else
     {
@@ -885,7 +885,7 @@ print_engine::paint_full_width (PaintCtx &ctx, Char cc, int f) const
     {
       SelectObject (ctx.hdc, pe_hfonts[f]);
       ExtTextOutW (ctx.hdc, ctx.x + pe_offset[f].x, ctx.y + pe_offset[f].y,
-                   0, 0, &wc, 1, 0);
+                   0, 0, (LPCWSTR)&wc, 1, 0);
     }
   else
     {
@@ -906,7 +906,7 @@ print_engine::paint_latin (PaintCtx &ctx, Char cc, int f) const
     {
       SelectObject (ctx.hdc, pe_hfonts[f]);
       ExtTextOutW (ctx.hdc, ctx.x + pe_offset[f].x, ctx.y + pe_offset[f].y,
-                   0, 0, &wc, 1, 0);
+                   0, 0, (LPCWSTR)&wc, 1, 0);
     }
   else
     {
@@ -937,7 +937,7 @@ print_engine::paint_lucida (PaintCtx &ctx, Char cc) const
           const lucida_spacing *p = &lucida_spacing_table[wc - UNICODE_SMLCDM_MIN];
           o = p->a >= 0 ? 0 : -p->a * pe_cell.cy / LUCIDA_BASE_HEIGHT;
         }
-      ExtTextOutW (ctx.hdc, ctx.x + o, ctx.y, 0, 0, &wc, 1, 0);
+      ExtTextOutW (ctx.hdc, ctx.x + o, ctx.y, 0, 0, (LPCWSTR)&wc, 1, 0);
       DeleteObject (SelectObject (ctx.hdc, of));
     }
   else
@@ -2135,7 +2135,7 @@ get_glyph_width (Char cc, const glyph_width &gw)
         if (wc != ucs2_t (-1))
           {
             SelectObject (gw.hdc, gw.hfonts[f]);
-            GetTextExtentPoint32W (gw.hdc, &wc, 1, &sz);
+            GetTextExtentPoint32W (gw.hdc, (LPCWSTR)&wc, 1, &sz);
           }
         else
           {

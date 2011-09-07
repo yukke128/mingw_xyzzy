@@ -38,7 +38,7 @@ Registry::~Registry ()
 }
 
 inline
-Registry::fail () const
+int Registry::fail () const
 {
   return !hkey;
 }

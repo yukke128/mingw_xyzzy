@@ -229,7 +229,7 @@ DdeDataP::DdeDataP (HDDEDATA h_)
 }
 
 inline
-DdeDataP::length () const
+int DdeDataP::length () const
 {
   return len;
 }

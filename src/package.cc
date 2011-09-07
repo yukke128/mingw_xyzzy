@@ -696,7 +696,7 @@ Flookup_symbol (lisp from, lisp to, lisp package)
   bp->substring (p1, l, b);
 
   maybe_symbol_string mss (package);
-  mss.parse (b, l);
+  mss.parse ((const Char*&)b, l);
   package = mss.current_package ();
 
   u_int hash = hashpjw (b, l);

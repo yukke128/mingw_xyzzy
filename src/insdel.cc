@@ -216,7 +216,7 @@ Buffer::move_before_gap (Point &w_point, int size) const
   copy_chunk (cur->c_text, prev, pused, w_point.p_offset);
 
   pused += w_point.p_offset;
-  adjust (prev, pused);
+  adjust ((const Chunk*&)prev, pused);
   if (pused == prev->c_used)
     {
       prev = prev->c_next;
@@ -248,7 +248,7 @@ copy_chunk_reverse (const Chunk *src, int soff, Chunk *dst, int doff, int size)
     return;
   soff += size;
   doff += size;
-  adjust_dst (dst, doff);
+  adjust_dst ((const Chunk *&)dst, doff);
   while (1)
     {
       int n = min (soff, doff);
